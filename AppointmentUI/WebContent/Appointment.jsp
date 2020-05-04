@@ -22,6 +22,8 @@
 			<form id="formItem" name="formItem">
 			<div class="form-row">
 				
+				<input id="AppointmentIDSave" name="AppointmentIDSave" type="text" hidden="true">
+				
 				<div class="form-group col-md-6">
 			 		User ID :
 			 		<input id="PatientID" name="PatientID" type="text"
@@ -160,6 +162,33 @@
 					</select>
 			 	</div>	
 		 	</div>
+		 	<div class="form-row"  >
+					
+					<div class="form-group col-md-4">
+				 		<b>Admin Privileges</b>Checked Status :				 		
+					 	<select id="CheckedStatus" name="CheckedStatus" class="form-control form-control-sm">
+						  <option value="Yes">Yes</option>
+						  <option value="No">No</option>					  
+						</select>
+				 	</div>
+				 	<div class="form-group col-md-3">
+				 		Added Date :
+				 		<input id="AddedDate" name="AddedDate" type="date"
+				 				class="form-control form-control-sm">
+				 	</div>	
+			</div>
+		 	<div class="form-row">
+				<div class="form-group col-md-6">
+			 		Amount :
+			 		<input id="Amount" name="Amount" type="text"
+			 				class="form-control form-control-sm" readonly>
+			 				
+			 		
+			 	</div>			 	
+			 	
+		 	</div>
+		 	
+		 	
 		 	<input type="checkbox" id="AnotherBook" name="AnotherBook" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3" readonly>	
 		 	<b>If you Book this to a another person please tick the checkbox,and fill the below form</b>
 		 	<br>
@@ -176,29 +205,26 @@
 				 				class="form-control form-control-sm">
 				 	</div>	
 			 	</div>	
-			 	<div class="form-row">
-					<div class="form-group col-md-6">
-				 		Email :
-				 		<input id="AnotherPatientEmail" name="AnotherPatientEmail" type="text"
-				 				class="form-control form-control-sm">
-				 	</div>
+			 	<div class="form-row">					
 				 	<div class="form-group col-md-6">
 				 		Contact Number :
 				 		<input id="AnotherPatientContactNumber" name="AnotherPatientContactNumber" type="text"
 				 				class="form-control form-control-sm">
 				 	</div>	
+				 	<div class="form-group col-md-6">
+				 		Email :
+				 		<input id="AnotherPatientEmail" name="AnotherPatientEmail" type="text"
+				 				class="form-control form-control-sm">
+				 	</div>
 			 	</div>
 			</div>
-		 	<div class="form-row">
-				<div class="form-group col-md-6">
-			 		Amount :
-			 		<input id="Amount" name="Amount" type="text"
-			 				class="form-control form-control-sm" readonly>
-			 				
-			 		
-			 	</div>			 	
-			 	
-		 	</div>
+			
+			
+			
+		 	
+		 	
+		 	
+		 	
 		 	
 		 	<input id="btnSave" name="btnSave" type="button" value="Save"
  			class="btn btn-primary">

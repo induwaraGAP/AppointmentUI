@@ -76,8 +76,38 @@ public class API_Appointment extends HttpServlet {
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Map paras = getParasMap(request); 
-		System.out.println("this is para " + paras);
+		Map paras = getParasMap(request); 	
+		System.out.println(paras);
+		AppointmentBean appbean = new AppointmentBean();
+		System.out.println("this id"+paras.get("AppointmentID"));
+		appbean.setAppointmentID(Integer.parseInt( String.valueOf(paras.get("AppointmentID"))));
+		appbean.setCheckedStatus(paras.get("CheckedStatus").toString());
+		appbean.setTokenNumber(56);
+		//check whether this is for another patient
+		if(paras.get("AnotherBook") == null) {
+			appbean.setAnotherPatientStatus("No");
+		}else {
+			appbean.setAnotherPatientStatus("Yes");
+			appbean.setAnotherPatientNIC(paras.get("AnotherPatientNIC").toString());
+			appbean.setAnotherPatientName(paras.get("AnotherPatientName").toString());
+			appbean.setAnotherPatientEmail(paras.get("AnotherPatientEmail").toString().replace("%40", "@"));
+			appbean.setAnotherPatientContactNumber(paras.get("AnotherPatientContactNumber").toString());
+		}
+		
+		appbean.setD_ID(Integer.parseInt(String.valueOf(paras.get("d_ID"))));
+		appbean.setSheduleID(Integer.parseInt(String.valueOf(paras.get("ScheduleID"))));
+		appbean.setHospitalID(Integer.parseInt(String.valueOf(paras.get("HospitalID"))));
+		appbean.setBookedDate(paras.get("BookedDate").toString());
+		appbean.setAddedDate(paras.get("AddedDate").toString());
+		appbean.setPaymentType(paras.get("PaymentType").toString());		
+		appbean.setPatientID(Integer.parseInt(String.valueOf(paras.get("PatientID"))));
+		appbean.setAmount( Double.parseDouble(String.valueOf(paras.get("Amount"))));
+		
+		
+		Appointment app = new Appointment();
+		String output = app.updateAppointment(appbean); 
+		System.out.println("finished it");
+		response.getWriter().write(output); 
 	}
 
 	/**
@@ -87,27 +117,29 @@ public class API_Appointment extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	//map function
 	private static Map getParasMap(HttpServletRequest request)
 	{
-	 Map<String, String> map = new HashMap<String, String>();
-	try
-	 {
-	 Scanner scanner = new Scanner(request.getInputStream(), "UTF-8");
-	 String queryString = scanner.hasNext() ?
-	 scanner.useDelimiter("\\A").next() : "";
-	 scanner.close();
-	 String[] params = queryString.split("&");
-	 for (String param : params)
-	 { 
-	
-	String[] p = param.split("=");
-	 map.put(p[0], p[1]);
-	 }
-	 }
-	catch (Exception e)
-	 {
-	 }
-	return map;
+		 Map<String, String> map = new HashMap<String, String>();
+		try
+		 {
+			 Scanner scanner = new Scanner(request.getInputStream(), "UTF-8");
+			 String queryString = scanner.hasNext() ?
+			 scanner.useDelimiter("\\A").next() : "";
+			 scanner.close();
+			 String[] params = queryString.split("&");
+			 for (String param : params)
+			 { 	
+				 System.out.println(param);
+				 String[] p = param.split("=");
+				 map.put(p[0], p[1]);
+			 }
+		 }
+		catch (Exception e)
+		 {
+		 }
+		return map;
 	}
 
 

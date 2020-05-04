@@ -6,6 +6,7 @@ $(document).ready(function()
 		$("#alertSuccess").hide();
 	 }
 	 $("#alertError").hide();
+	// $("#Updatehide").hide();
 });
 
 //SAVE ============================================
@@ -24,11 +25,12 @@ $(document).on("click", "#btnSave", function(event)
 		$("#alertError").show();
 		return;
 	 }
-	
+	var type = ($("#hidAppointmentIDUpdate").val() == "") ? "POST" : "PUT";
+
 	 $.ajax(
 		{
 		 url : "API_Appointment",
-		 type : "POST",
+		 type : type,
 		 data : $("#formItem").serialize(),
 		 dataType : "text",
 		 complete : function(response, status)
@@ -75,8 +77,84 @@ function onItemSaveComplete(response, status)
 	$("#formItem")[0].reset();
 }
 
+//UPDATE==========================================
+$(document).on("click", ".btnUpdate", function(event)
+{
+	//redo previous
+	 $('#AnotherBook').prop('checked', false);	
+	 $("#AnotherPatientNIC").val("");
+	 $("#AnotherPatientName").val("");
+	 $("#AnotherPatientEmail").val("");
+	 $("#AnotherPatientContactNumber").val("");
+	
+	
+	 $("#AppointmentIDSave").val($(this).closest("tr").find('#hidAppointmentIDUpdate').val());
+	 $("#PatientID").val($(this).closest("tr").find('td:eq(1)').text());
+	 $("#AppointmentID").val($(this).closest("tr").find('td:eq(0)').text());
+	 $("#d_ID").val($(this).closest("tr").find('td:eq(9)').text());
+	 $("#HospitalID").val($(this).closest("tr").find('td:eq(11)').text());
+	 $("#ScheduleID").val($(this).closest("tr").find('td:eq(10)').text());
+	 $("#BookedDate").val($(this).closest("tr").find('td:eq(13)').text());
+	 $("#HospitalPrice").val(300.00);
+	 $("#SheduleTime").val("11.00am - 2.00pm");
+	 $("#Day").val("Monday");
+	 $("#HospitalName").val("Hemas");
+	 //$("#Updatehide").show();
+	 $("#CheckedStatus").val($(this).closest("tr").find('td:eq(2)').text());
+	 $("#AddedDate").val($(this).closest("tr").find('td:eq(12)').text());
 
+	 //check for another patient type then check the tickbox
+	 if($(this).closest("tr").find('td:eq(4)').text()=="Yes"){
+		 $('#AnotherBook').prop('checked', true);
+		 $('#collapseExample3').collapse();
+		 $("#AnotherPatientNIC").val($(this).closest("tr").find('td:eq(5)').text());
+		 $("#AnotherPatientName").val($(this).closest("tr").find('td:eq(6)').text());
+		 $("#AnotherPatientEmail").val($(this).closest("tr").find('td:eq(7)').text());
+		 $("#AnotherPatientContactNumber").val($(this).closest("tr").find('td:eq(8)').text());
+	 } 
+ 
+	 //Cal Total Amount
+	var total = +($("#HospitalPrice").val()) + +($("#d_Price").val())  ;
+	$("#Amount").val(total.toFixed(2));
+ 
 
+});
+
+$(document).on("click", ".btnRemove", function(event)
+{
+	 $.ajax(
+	 {
+		 url : "ItemsAPI",
+		 type : "DELETE",
+		 data : "AppointmentID=" + $(this).data("AppointmentID"),
+		 dataType : "text",
+		 complete : function(response, status)
+		 {
+			 onItemDeleteComplete(response.responseText, status);
+		 }
+	 });
+});
+
+function onItemDeleteComplete(response, status)
+{
+	if (status == "success") {
+		var resultSet = JSON.parse(response);
+		if (resultSet.status.trim() == "success") {
+			$("#alertSuccess").text("Successfully deleted.");
+			$("#alertSuccess").show();
+			$("#divItemsGrid").html(resultSet.data);
+		} else if (resultSet.status.trim() == "error") {
+			$("#alertError").text(resultSet.data);
+			$("#alertError").show();
+		}
+	} else if (status == "error") {
+		$("#alertError").text("Error while deleting.");
+		$("#alertError").show();
+	} else {
+		$("#alertError").text("Unknown error while deleting..");
+		$("#alertError").show();
+	}
+}
 
 //CLIENTMODEL=========================================================================
 function validateItemForm()
@@ -137,19 +215,16 @@ function validateItemForm()
 			if($("#AnotherPatientContactNumber").val().length < 10){
 				return "Wrong Phone Number";
 			}	
-		}
-		
+		}		
 
 		
 	}
-
-	
 	
 
 	return true;
 }
 
-//UPDATE==========================================
+//Dropdown select==========================================
 $(document).on("click", ".btnSelect", function(event)
 {	
 	$("#HospitalID").val($(this).closest("tr").find('td:eq(0)').text());

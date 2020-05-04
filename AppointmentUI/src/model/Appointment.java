@@ -76,7 +76,10 @@ public class Appointment {
 				appBeanRead.setBookedDate(rs.getString("BookedDate"));
 
 				// Add into the HTML table
-				output += "<tr><td>" + appBeanRead.getAppointmentID() + "</td>";
+				output += "<tr><td><input id='hidAppointmentIDUpdate'"+
+						 " name='hidAppointmentIDUpdate' "+
+						 " type='hidden' value='" + appBeanRead.getAppointmentID()  + "'>" ;
+				output += appBeanRead.getAppointmentID() + "</td>";
 				output += "<td>" + appBeanRead.getPatientID() + "</td>";
 				output += "<td>" + appBeanRead.getCheckedStatus() + "</td>";
 				output += "<td>" + appBeanRead.getTokenNumber() + "</td>";
@@ -97,7 +100,7 @@ public class Appointment {
 						   " class='btnUpdate btn btn-secondary'></td> "+
 						   " <td><input name='btnRemove' type='button' "+
 						   " value='Remove' "+
-						   " class='btnRemove btn btn-danger' data-itemid='"+
+						   " class='btnRemove btn btn-danger' data-AppointmentID='"+
 						     appBeanRead.getAppointmentID() + "'>" +
 						   "</td></tr>"; 
 				
