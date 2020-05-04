@@ -100,7 +100,7 @@ public class Appointment {
 						   " class='btnUpdate btn btn-secondary'></td> "+
 						   " <td><input name='btnRemove' type='button' "+
 						   " value='Remove' "+
-						   " class='btnRemove btn btn-danger' data-AppointmentID='"+
+						   " class='btnRemove btn btn-danger' data-appointmentid='"+
 						     appBeanRead.getAppointmentID() + "'>" +
 						   "</td></tr>"; 
 				

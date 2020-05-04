@@ -120,13 +120,14 @@ $(document).on("click", ".btnUpdate", function(event)
 
 });
 
+//DELETE==========================================
 $(document).on("click", ".btnRemove", function(event)
 {
 	 $.ajax(
 	 {
-		 url : "ItemsAPI",
+		 url : "API_Appointment",
 		 type : "DELETE",
-		 data : "AppointmentID=" + $(this).data("AppointmentID"),
+		 data : "AppointmentID=" + $(this).data("appointmentid"),
 		 dataType : "text",
 		 complete : function(response, status)
 		 {

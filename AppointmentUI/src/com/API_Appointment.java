@@ -114,7 +114,13 @@ public class API_Appointment extends HttpServlet {
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		Map paras = getParasMap(request);
+		Appointment app = new Appointment();
+		AppointmentBean appbean = new AppointmentBean();
+		appbean.setAppointmentID(Integer.parseInt(String.valueOf(paras.get("AppointmentID"))));
+		System.out.println(Integer.parseInt(String.valueOf(paras.get("AppointmentID"))));
+		String output = app.deleteAppointement(appbean);
+		response.getWriter().write(output); 
 		
 	}
 	
