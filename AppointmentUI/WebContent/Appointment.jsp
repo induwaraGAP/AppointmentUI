@@ -6,10 +6,10 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>  
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="Views/bootstrap/4.4.1/css/bootstrap.min.css">
  <script src="Components/jquery-3.3.1.min.js"></script>
   <script src="Components/Appointment.js"></script>
- <script src="http://netdna.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+ <script src="Views/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
 </head>
 <body>
