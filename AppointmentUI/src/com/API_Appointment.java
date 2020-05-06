@@ -59,15 +59,13 @@ public class API_Appointment extends HttpServlet {
 		appbean.setSheduleID(Integer.parseInt(request.getParameter("ScheduleID")));
 		appbean.setHospitalID(Integer.parseInt(request.getParameter("HospitalID")));
 		appbean.setBookedDate(request.getParameter("BookedDate"));
-		appbean.setPaymentType(request.getParameter("PaymentType"));
-		System.out.println("this is payment type "+request.getParameter("PaymentType"));
+		appbean.setPaymentType(request.getParameter("PaymentType"));		
 		appbean.setPatientID(Integer.parseInt(request.getParameter("PatientID")));
 		appbean.setAmount(Double.parseDouble(request.getParameter("Amount")));
 		
 		
 		Appointment app = new Appointment();
-		String output = app.insertAppointment(appbean); 
-		System.out.println("finished it");
+		String output = app.insertAppointment(appbean); 		
 		response.getWriter().write(output); 
 	}
 
@@ -76,10 +74,10 @@ public class API_Appointment extends HttpServlet {
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Map paras = getParasMap(request); 	
-		System.out.println(paras);
-		AppointmentBean appbean = new AppointmentBean();
-		System.out.println("this id"+paras.get("AppointmentID"));
+		Map paras = getParasMap(request); 
+		
+		//SAVE ALL DATA IN APPOINTMENTBEAN CLASS
+		AppointmentBean appbean = new AppointmentBean();		
 		appbean.setAppointmentID(Integer.parseInt( String.valueOf(paras.get("AppointmentID"))));
 		appbean.setCheckedStatus(paras.get("CheckedStatus").toString());
 		appbean.setTokenNumber(56);
@@ -89,7 +87,7 @@ public class API_Appointment extends HttpServlet {
 		}else {
 			appbean.setAnotherPatientStatus("Yes");
 			appbean.setAnotherPatientNIC(paras.get("AnotherPatientNIC").toString());
-			appbean.setAnotherPatientName(paras.get("AnotherPatientName").toString());
+			appbean.setAnotherPatientName(paras.get("AnotherPatientName").toString().toString().replace("+", " "));
 			appbean.setAnotherPatientEmail(paras.get("AnotherPatientEmail").toString().replace("%40", "@"));
 			appbean.setAnotherPatientContactNumber(paras.get("AnotherPatientContactNumber").toString());
 		}
@@ -105,8 +103,7 @@ public class API_Appointment extends HttpServlet {
 		
 		
 		Appointment app = new Appointment();
-		String output = app.updateAppointment(appbean); 
-		System.out.println("finished it");
+		String output = app.updateAppointment(appbean); 		
 		response.getWriter().write(output); 
 	}
 
@@ -117,8 +114,7 @@ public class API_Appointment extends HttpServlet {
 		Map paras = getParasMap(request);
 		Appointment app = new Appointment();
 		AppointmentBean appbean = new AppointmentBean();
-		appbean.setAppointmentID(Integer.parseInt(String.valueOf(paras.get("AppointmentID"))));
-		System.out.println(Integer.parseInt(String.valueOf(paras.get("AppointmentID"))));
+		appbean.setAppointmentID(Integer.parseInt(String.valueOf(paras.get("AppointmentID"))));		
 		String output = app.deleteAppointement(appbean);
 		response.getWriter().write(output); 
 		
@@ -136,8 +132,7 @@ public class API_Appointment extends HttpServlet {
 			 scanner.close();
 			 String[] params = queryString.split("&");
 			 for (String param : params)
-			 { 	
-				 System.out.println(param);
+			 { 					 
 				 String[] p = param.split("=");
 				 map.put(p[0], p[1]);
 			 }

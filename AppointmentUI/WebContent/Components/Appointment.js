@@ -6,7 +6,7 @@ $(document).ready(function()
 		$("#alertSuccess").hide();
 	 }
 	 $("#alertError").hide();
-	// $("#Updatehide").hide();
+	 $("#Updatehide").hide();
 });
 
 //SAVE ============================================
@@ -25,7 +25,7 @@ $(document).on("click", "#btnSave", function(event)
 		$("#alertError").show();
 		return;
 	 }
-	var type = ($("#hidAppointmentIDUpdate").val() == "") ? "POST" : "PUT";
+	var type = ($("#AppointmentIDSave").val() == "") ? "POST" : "PUT";
 
 	 $.ajax(
 		{
@@ -73,7 +73,9 @@ function onItemSaveComplete(response, status)
 		
 	}
 	
-	//$("#hidItemIDSave").val("");
+	$("#hidItemIDSave").val("");
+	$("#Updatehide").hide();
+	$('#collapseExample3').collapse('hide');
 	$("#formItem")[0].reset();
 }
 
@@ -99,7 +101,7 @@ $(document).on("click", ".btnUpdate", function(event)
 	 $("#SheduleTime").val("11.00am - 2.00pm");
 	 $("#Day").val("Monday");
 	 $("#HospitalName").val("Hemas");
-	 //$("#Updatehide").show();
+	 $("#Updatehide").show();
 	 $("#CheckedStatus").val($(this).closest("tr").find('td:eq(2)').text());
 	 $("#AddedDate").val($(this).closest("tr").find('td:eq(12)').text());
 
@@ -176,6 +178,12 @@ function validateItemForm()
 			return "Insert Other Patient NIC.";		
 		}
 		
+		//check the vaidity of NIC		
+		if ($("#AnotherPatientNIC").val().trim().length < 10){
+			
+			return "NIC should have 10 Characters.";		
+		}
+		
 		//AnotherPatientnName
 		if ($("#AnotherPatientName").val().trim() == ""){
 			
@@ -203,20 +211,21 @@ function validateItemForm()
 			
 		}
 		
+		//cal the validity of phone number	
+		if ($("#AnotherPatientContactNumber").val().trim() != ""){
+			
+			if($("#AnotherPatientContactNumber").val().length < 10){
+				return "Wrong Phone Number";
+			}	
+		}
+		
 		//AnotherPatientContactNumber
 		if ($("#AnotherPatientContactNumber").val().trim() == ""){
 			
 			return "Insert Other Patient Contact Number.";		
 		}
 		
-		//cal the validity of phone number
-		//AnotherPatientContactNumber
-		if ($("#AnotherPatientContactNumber").val().trim() != ""){
-			
-			if($("#AnotherPatientContactNumber").val().length < 10){
-				return "Wrong Phone Number";
-			}	
-		}		
+				
 
 		
 	}

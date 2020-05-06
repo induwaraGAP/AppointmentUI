@@ -186,24 +186,24 @@ public class Appointment {
 	}
 
 	public String insertAppointment(AppointmentBean appointment) {
-		System.out.println("came here 5");
+		
 		output = "";
 		String validData = "";
 		try {
-			System.out.println("1");
+			
 			con = DBConnection.connect();
 
 			if (con == null) {
 				return "Error while connecting to the database for inserting.";
 			}
-			System.out.println("2");
+			
 			// check the validity of data
 			validData = validateData(appointment);
 			if (!validData.equals("good")) {
 				System.out.println(validData);
 				return validData;
 			}
-			System.out.println("3");
+		
 			// create a prepared statement
 			query = "INSERT INTO appointment ( CheckedStatus, TokenNumber, AnotherPatientStatus, AnotherPatientNIC, AnotherPatientName, AnotherPatientEmail, AnotherPatientContactNumber, d_ID, SheduleID, HospitalID,BookedDate,AddedDate,PatientID) "
 					+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,CURDATE(),?);";
@@ -224,14 +224,13 @@ public class Appointment {
 
 			// execute the statement
 			preparedStmt.execute();
-			System.out.println("4");
+			
 			// get the AppointmentID of the current inserted row & assign it to
 			// LastAppointmentID variable
 			//GetAppointmentIdOfRecentInsert(con);
 			// insert into related Payment Tables
 			//GetInsertServiceFromPayment(appointment);
-			con.close();
-			System.out.println("5");
+			con.close();			
 			String newAppointment = readAppointment();
 			output = "{\"status\":\"success\", \"data\": \"" +
 					newAppointment + "\"}"; 
@@ -240,10 +239,9 @@ public class Appointment {
 			output = "{\"status\":\"error\", \"data\": "+
 					 "\"Error while inserting the Appointment.\"}"; 
 			System.err.println(e.getMessage());
-			System.out.println("error " +e);
-			System.out.println("came ehere");
+			
 		}
-		System.out.println(output);
+		
 		return output;
 	}
 

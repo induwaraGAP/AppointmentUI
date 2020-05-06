@@ -57,6 +57,7 @@
 			 	</div>
 			 		
 		 	</div>
+		 	<b>Select the hospital from the drop down by clicking Hospital Name textfield</b>
 		 	<div class="form-row">
 				
 			 	<div class="form-group col-md-8">
@@ -162,7 +163,7 @@
 					</select>
 			 	</div>	
 		 	</div>
-		 	<div class="form-row"  >
+		 	<div class="form-row"  id="Updatehide" >
 					
 					<div class="form-group col-md-4">
 				 		<b>Admin Privileges</b>Checked Status :				 		
